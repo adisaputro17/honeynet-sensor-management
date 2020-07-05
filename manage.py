@@ -488,7 +488,7 @@ class RestartSensor(QDialog):
 		layoutRestartSensor.addWidget(self.comboListRestartSensor)
 
 		self.QRestartSensorBtn = QPushButton()
-		self.QRestartSensorBtn.setText("Stop")
+		self.QRestartSensorBtn.setText("Restart")
 		layoutRestartSensor.addWidget(self.QRestartSensorBtn)
 
 		self.QRestartSensorBtn.clicked.connect(self.restartsensor)
@@ -611,7 +611,11 @@ class MainWindow(QMainWindow):
 
 		self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
-		self.loaddata()
+		# self.loaddata()
+
+		timer = QtCore.QTimer(self)
+		timer.start(1000)	#millisecond 
+		timer.timeout.connect(self.loaddata)
 
 		toolbar = QToolBar()
 		toolbar.setMovable(False)
@@ -682,19 +686,24 @@ class MainWindow(QMainWindow):
 
 			for sensor in result:
 				splitImage = sensor['Image'].split('/')
+				splitStatus = sensor['Status'].split(' ')
 				for nama in sensor['Names']:
 					splitNama = nama.split('/')
 					self.tableWidget.setItem(iterasiLoadData,0, QTableWidgetItem(splitNama[1]))
 				self.tableWidget.setItem(iterasiLoadData,3, QTableWidgetItem(splitImage[1]))
-				self.tableWidget.setItem(iterasiLoadData,4, QTableWidgetItem(sensor['State']))
+				
 				self.tableWidget.setItem(iterasiLoadData,5, QTableWidgetItem(sensor['Id']))
 				self.tableWidget.setItem(iterasiLoadData,1, QTableWidgetItem(x[1]))
 				self.tableWidget.setItem(iterasiLoadData,2, QTableWidgetItem(x[2]))
 				if "running" in sensor['State']:
+					self.tableWidget.setItem(iterasiLoadData,4, QTableWidgetItem(sensor['Status']))
 					self.tableWidget.item(iterasiLoadData, 4).setForeground(QtGui.QColor(0, 200, 0))
 					# self.tableWidget.item(iterasiLoadData, 4).setBackground(QtGui.QColor(0, 200, 0))
 				elif "exited" in sensor['State']:
+					self.tableWidget.setItem(iterasiLoadData,4, QTableWidgetItem(splitStatus[0] + " " + splitStatus[2] + " " + splitStatus[3] + " " + splitStatus[4]))
 					self.tableWidget.item(iterasiLoadData, 4).setForeground(QtGui.QColor(255, 0, 0))
+				else:
+					self.tableWidget.setItem(iterasiLoadData,4, QTableWidgetItem(sensor['Status']))
 				iterasiLoadData+=1
 
 	def add(self):
@@ -727,4 +736,5 @@ app = QApplication(sys.argv)
 if(QDialog.Accepted == True):
 	window = MainWindow()
 	window.show()
+	window.loaddata()
 sys.exit(app.exec_())
