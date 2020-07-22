@@ -1,0 +1,37 @@
+{
+	"Image": "ardikabs/dionaea",
+	"ExposedPorts": {
+		"20/tcp": {},
+		"21/tcp": {},
+		"42/tcp": {},
+		"69/udp": {},
+		"135/tcp": {},
+		"443/tcp": {},
+		"445/tcp": {},
+		"1433/tcp": {},
+		"1723/tcp": {},
+		"1883/tcp": {},
+		"3306/tcp": {},
+		"5060/udp": {},
+		"5061/tcp": {},
+		"27017/tcp": {}
+	},
+	"HostConfig": {
+		"PortBindings": {
+			"20/tcp": [{ "HostPort": "20" }],
+			"21/tcp": [{ "HostPort": "21" }],
+			"42/tcp": [{ "HostPort": "42" }],
+			"69/udp": [{ "HostPort": "69" }],
+			"135/tcp": [{ "HostPort": "135" }],
+			"443/tcp": [{ "HostPort": "443" }],
+			"445/tcp": [{ "HostPort": "445" }],
+			"1433/tcp": [{ "HostPort": "1433" }],
+			"1723/tcp": [{ "HostPort": "1723" }],
+			"1883/tcp": [{ "HostPort": "1883" }],
+			"3306/tcp": [{ "HostPort": "3306" }],
+			"5060/udp": [{ "HostPort": "5060" }],
+			"5061/tcp": [{ "HostPort": "5061" }],
+			"27017/tcp": [{ "HostPort": "27017" }]
+		}
+	}
+}

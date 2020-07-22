@@ -1,0 +1,9 @@
+{
+	"Image": "cowrie/cowrie",
+	"ExposedPorts": {
+		"2222/tcp": {}
+	},
+	"HostConfig": {
+		"PortBindings": { "2222/tcp": [{ "HostPort": "22" }] }
+	}
+}
